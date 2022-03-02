@@ -14,35 +14,26 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 class Customer
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="guid", unique=true)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class=\Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator::class)
-     */
+    * @ORM\Id
+    * @ORM\Column(type="guid", unique=true)
+    * @ORM\GeneratedValue(strategy="CUSTOM")
+    * @ORM\CustomIdGenerator(class=\Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator::class)
+    */
     private string $id;
 
     /**
-     * @ORM\Column(type="decimal", precision=17, scale=4, options={"default": "0.00"})
+     * @ORM\Version()
+     * @ORM\Column(type="datetime")
      */
-    private string $price = '0.00';
+    private \DateTime $version;
 
     public function getId(): string
     {
         return $this->id;
     }
 
-    public function setId(string $id): void
+    public function getVersion(): \DateTime
     {
-        $this->id = $id;
-    }
-
-    public function getPrice(): string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): void
-    {
-        $this->price = $price;
+        return $this->version;
     }
 }
